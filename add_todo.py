@@ -1,7 +1,7 @@
 import sqlite3
 
-def add_todo(table):
-    conn = sqlite3.connect(table)
+def add_todo():
+    conn = sqlite3.connect("Ace")
 
     cur = conn.cursor()
 

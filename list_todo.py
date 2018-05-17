@@ -1,7 +1,7 @@
 def list_todo():
 	import sqlite3 
 
-	conn = sqlite3.connect("lab.db")
+	conn = sqlite3.connect("ace.db")
 	cur = conn.cursor()
 
 	sql = "select * from todo where 1"

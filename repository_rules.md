@@ -1,7 +1,3 @@
-# Ace_todolist
-
-This is python CLI application.
-
 # Github reporitory rules
 
 ### 1. 각자 작업은 fork한 저장소에서

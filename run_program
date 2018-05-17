@@ -9,6 +9,6 @@ def run_program():
 		elif (select == 'l'):
 			list_todo()
 		elif (select == 'm'):
-			modify_todo()
+			edit()
 		elif (select == 'q'):
 			break

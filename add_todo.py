@@ -14,3 +14,6 @@ def add_todo():
     conn.commit()
 
     conn.close()
+
+    # 개행을 위한 print()
+    print()

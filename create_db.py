@@ -9,6 +9,10 @@ def create_db():
 		id integer primary key autoincrement,
 		what text not null,
 		due text not null,
+        categ text not null,
+        pnum integer,
+        place text not null,
+        comment text not null,
 		finished integer);"""
 
     cur.execute(table_create_sql)

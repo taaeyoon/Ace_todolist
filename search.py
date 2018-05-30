@@ -1,9 +1,10 @@
 # todo table에 존재하는 todo 항목을 검색하여 찾는 함수...
 
 import sqlite3
+import list_todo as list 
 
 def search():
-    conn = sqlite3.connect("lab.db")
+    conn = sqlite3.connect("ace.db")
     cur = conn.cursor()
 
     # 검색한 항목을 담은 list
@@ -21,23 +22,22 @@ def search():
         for row in rows :
             search_list.append(row)
 
-        # ace_list.print_list(search_list)
+        list.print_list(search_list)
 
     elif(search_type == "t") :
         search_title = input("what title: ")
         search_list = contain_thing(search_title,1)
-        # ace_list.print_list(search_list)
+        list.print_list(search_list)
 
     elif(search_type == "d") :
         search_due = input("what due: ")
-        search_list = contain_thing(search_due,2) 
-        # ace : 4 / mine : 2
-        # ace_list.print_list(search_list)
+        search_list = contain_thing(search_due,4) 
+        list.print_list(search_list)
 
     elif(search_type == "c"):
         search_category = input("whar category: ")
         search_list = contain_thing(search_category,2)
-        # ace_list.print_list(search_list)
+        list.print_list(search_list)
 
     cur.close()
     conn.close()
@@ -48,7 +48,7 @@ def search():
 # 검색하는 단어를 포함하는 항목 모두 찾기
 def contain_thing(what_search,num_index):
     
-    conn = sqlite3.connect("lab.db")
+    conn = sqlite3.connect("ace.db")
     cur = conn.cursor()
 
     # 검색하는 단어를 포함한 모든 항목 리스트

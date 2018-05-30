@@ -1,13 +1,18 @@
 import sqlite3
+import now_date
 
+
+# 항목 추가 함수
 def add_todo():
     conn = sqlite3.connect("ace.db")
-
     cur = conn.cursor()
     placedefualt = ' '
     commentdefualt = ' '
     title = input("Todo ? ")
-    due = input("Due date ? ")
+    due = input("Due date? (yyyy-mm-dd or mm-dd or dd)")
+    # 년도 또는 달 생략 시 현재 년도와 달로 대체
+    if len(d) < 10:
+        d = now_date.convert_due(d)
     categ = input("Category ? ")
     pnum = input("Order ? (1 to 5)")
     while  (pnum  != '1') and (pnum  != '2') and (pnum  != '3') and (pnum  != '4') and (pnum  != '5') :
@@ -26,9 +31,8 @@ def add_todo():
     sql = "insert into todo (what, due, categ, pnum, place, comment, finished) values (?, ?, ?, ?, ?, ?,0);"
 
     cur.executemany(sql, data)
+
     conn.commit()
-
     conn.close()
-
     # 개행을 위한 print()
     print()

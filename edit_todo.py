@@ -1,6 +1,6 @@
 import sqlite3
 import list_todo
-
+import search
 
 def edit_todo():
     conn = sqlite3.connect("ace.db")
@@ -12,7 +12,7 @@ def edit_todo():
     while loop == 'y' or loop == 'Y':
 
         # 수정 전 리스트 보여주기 -> search code로 변경
-        list_todo.list_all()
+        search.search()
 
         # 변경할 항목 선택
         sel_id = input("Record id? ")

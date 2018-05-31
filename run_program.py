@@ -2,6 +2,7 @@ import list_todo
 import edit_todo
 import create_db
 import add_todo
+import remove_todo
 
 COLUMN = ["title", "category", "priority", "due"]
 SORT = ["asc", "desc"]
@@ -55,8 +56,10 @@ def run_program():
                 option = OPTIONS.index(option) + 1
                 # 옵션에 따른 정렬 및 출력 함수
                 status = sort(int(option), status, int(select2)-1)
-        elif select == 'm':
-            edit_todo.edit()
+        elif select == 'e':
+            edit_todo.edit_todo()
+        elif select == 'r':
+            remove_todo.remove_todo()
         elif select == 'q':
             break
 

@@ -9,8 +9,8 @@ def create_db():
 		id integer primary key autoincrement,
 		what text not null,
 		due text not null,
-        categ text not null,
-        pnum integer,
+        category text not null,
+        priority integer,
         place text not null,
         comment text not null,
 		finished integer);"""

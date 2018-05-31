@@ -18,13 +18,13 @@ def add_todo():
     while (priority != '1') and (priority != '2') and (priority != '3') and (priority != '4') and (priority != '5'):
         priority = input("Priority ? (1 to 5)")
 
-    placeyn = input("Edit Place ? (y / n) ")
-    if (placeyn == 'y') or (placeyn == 'Y'):
+    edit_place = input("Edit Place ? (y / n) ")
+    if (edit_place == 'y') or (edit_place == 'Y'):
         place = input("Place ? ")
     else:
         place = place_default
-    commentyn = input("Edit Comment ? (y / n) ")
-    if (commentyn == 'y') or (commentyn == 'Y'):
+    edit_comment = input("Edit Comment ? (y / n) ")
+    if (edit_comment == 'y') or (edit_comment == 'Y'):
         comment = input("Comment ? ")
     else:
         comment = comment_default

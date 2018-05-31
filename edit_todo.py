@@ -10,51 +10,51 @@ def edit():
     list_todo.list_all()
 
     # 변경할 리스트항목의 넘버
-    id = input("Record id ? ")
+    id_number = input("Record id ? ")
 
     # 변경할 카테고리 선택
-    whattodo = input("What do you want to edit? \n title => TITLE\n "
-                     "Due date => DUE\n Category => CAT\n Order => ORDER\n "
-                     "Finished => FIN\n : ")
+    what_to_do = input("What do you want to edit? \n title => TITLE\n "
+                       "Due date => DUE\n Category => CAT\n Order => ORDER\n "
+                       "Finished => FIN\n : ")
 
     # 변경내용 작성
-    if 'TODO' in whattodo:
+    if 'TODO' in what_to_do:
         todo = input("Todo ? ")
         sql = "UPDATE todo SET title=? WHERE id=?"
         data = (
-            (todo, id),
+            (todo, id_number),
         )
         cur.executemany(sql, data)
 
-    if 'DUE' in whattodo:
+    if 'DUE' in what_to_do:
         due = input("Due date ? ")
         sql = "UPDATE todo SET due=? WHERE id=?"
         data = (
-            (due, id),
+            (due, id_number),
         )
         cur.executemany(sql, data)
 
-    if 'CAT' in whattodo:
+    if 'CAT' in what_to_do:
         cat = input("Category? ")
         sql = "UPDATE todo SET category=? WHERE id=?"
         data = (
-            (cat, id),
+            (cat, id_number),
         )
         cur.excutemany(sql, data)
 
-    if 'ORDER' in whattodo:
+    if 'ORDER' in what_to_do:
         order = input("Order? ")
         sql = "UPDATE todo SET priority=? WHERE id=?"
         data = (
-            (order, id),
+            (order, id_number),
         )
         cur.executemany(sql, data)
 
-    if 'FIN' in whattodo:
+    if 'FIN' in what_to_do:
         fin = input("Finished (1: yes, 0: no)? ")
         sql = "UPDATE todo SET finished=? WHERE id=?"
         data = (
-            (fin, id),
+            (fin, id_number),
         )
         cur.executemany(sql, data)
 

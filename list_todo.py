@@ -47,7 +47,7 @@ def print_list(rows):
     # 각 항목 출력
     for row in rows:
         due = str(row[4])
-        fin = row[5]
+        fin = row[-1]
         # 매 다섯 번 째 열 마다 가로 선 출력
         if count == 5:
             print(line_string())
@@ -104,28 +104,28 @@ def list_finished_unfinished(where=" ", data="ace.db"):
 
     # 기본 옵션
     if where == " ":
-        sql_fin = "select * from todo where finished = 0"
-        sql_unfin = "select * from todo where finished = 1"
+        sql_finished = "select * from todo where finished = 0"
+        sql_unfinished = "select * from todo where finished = 1"
     # 정렬 옵션
     else:
-        sql_fin = "select * from todo where finished = 0 order by " + where
-        sql_unfin = "select * from todo where finished = 1 order by " + where
-    cur.execute(sql_fin)
+        sql_finished = "select * from todo where finished = 0 order by " + where
+        sql_unfinished = "select * from todo where finished = 1 order by " + where
+    cur.execute(sql_finished)
 
-    rows_fin = cur.fetchall()
+    rows_finished = cur.fetchall()
 
-    cur.execute(sql_unfin)
-    rows_unfin = cur.fetchall()
+    cur.execute(sql_unfinished)
+    rows_unfinished = cur.fetchall()
 
     print()
     # 미완료 항목 출력
     print("****Undone Todo List****")
-    print_list(rows_fin)
+    print_list(rows_finished)
 
     print()
     # 완료 항목 출력
     print("****Done Todo List****")
-    print_list(rows_unfin)
+    print_list(rows_unfinished)
 
 
 # 각 항목에 대한 문자열 생성
@@ -143,10 +143,10 @@ def todo_string(color, row, line=WHITE):
 
 
 # 구분 선에 대한 문자열 생성
-def line_string(type="-", color=WHITE):
+def line_string(shape="-", color=WHITE):
     string = color
     for size in COLUMN_SIZE:
-        string += type * size
+        string += shape * size
         if size != COLUMN_SIZE[-1]:
             string += "+"
         else:

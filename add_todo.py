@@ -27,13 +27,9 @@ def add_todo():
     if (commentyn == 'y') or (commentyn == 'Y') :
         comment = input("Comment ? ")
     else :
-        comment = commentdefualt
-    data = ((title, due, categ, pnum, place, comment), )
-    sql = "insert into todo (title, due, categ, pnum, place, comment, finished) values (?, ?, ?, ?, ?, ?,0);"
         comment = commentdefault
     data = ((title, due, category, priority, place, comment), )
-    sql = "insert into todo (what, due, category, priority, place, comment, finished) values (?, ?, ?, ?, ?, ?,0);"
-
+    sql = "insert into todo (title, due, category, priority, place, comment, finished) values (?, ?, ?, ?, ?, ?,0);"
 
     cur.executemany(sql, data)
 

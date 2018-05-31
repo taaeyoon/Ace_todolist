@@ -31,12 +31,12 @@ def search():
 
     elif(search_type == "d") :
         search_due = input("what due: ")
-        search_list = contain_thing(search_due,4) 
+        search_list = contain_thing(search_due,2) 
         list.print_list(search_list)
 
     elif(search_type == "c"):
         search_category = input("whar category: ")
-        search_list = contain_thing(search_category,2)
+        search_list = contain_thing(search_category,3)
         list.print_list(search_list)
 
     cur.close()

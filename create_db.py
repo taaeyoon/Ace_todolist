@@ -11,7 +11,7 @@ def create_db(data="ace.db"):
         title text not null,
         due text not null,
         category text not null,
-        pnum integer,
+        priority integer,
         place text not null,
         comment text not null,
         finished integer);"""

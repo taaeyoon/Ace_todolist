@@ -7,6 +7,8 @@ def detail() :
     conn = sqlite3.connect("ace.db")
     cur = conn.cursor()
 
+    col_list = ["id","title","due","category","priority","place","comment","finished"]
+
     # 세부사항을 보고 싶은 항목의 id 선택하기
     detail_id = input("choose id of item that you want to see details: ")
     
@@ -16,8 +18,8 @@ def detail() :
     row = cur.fetchone()
 
     # 항목 보여주기
-    for element in row :
-        print(element," ", end="")
+    for i in range(0,len(col_list)):
+        print(col_list[i],": ",row[i])
 
     print()
 

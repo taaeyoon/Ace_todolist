@@ -7,7 +7,6 @@ def create_db(data="ace.db"):
     cur = conn.cursor()
 
     table_create_sql = """create table if not exists todo(
-
         id integer primary key autoincrement,
         title text not null,
         due text not null,

@@ -11,6 +11,7 @@ def edit_todo():
     # 반복에 대해 yes라고 응답하면 반복
     while loop == 'y' or loop == 'Y':
 
+
         # 수정 전 리스트 보여주기 -> search code로 변경
         search.search()
 
@@ -61,6 +62,7 @@ def edit_todo():
         conn.commit()
 
         loop = input("anything else you want to edit?/n yes:y no:n ")
+
 
     # 변경된 리스트 출력
     list_todo.list_all()

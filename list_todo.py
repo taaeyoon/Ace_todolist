@@ -5,25 +5,25 @@ import now_date
 WIDTH_ID = 4
 WIDTH_TITLE = 61
 WIDTH_CATEGORY = 16
-WIDTH_ORDER = 7
+WIDTH_PRIORITY = 10
 WIDTH_DUE = 11
-COLUMN_SIZE = [WIDTH_ID, WIDTH_TITLE, WIDTH_CATEGORY, WIDTH_ORDER, WIDTH_DUE]
+COLUMN_SIZE = [WIDTH_ID, WIDTH_TITLE, WIDTH_CATEGORY, WIDTH_PRIORITY, WIDTH_DUE]
 
 # 각 행의 라벨
 ID = "ID"
 TITLE = "TITLE"
 CATEGORY = "CATEGORY"
-ORDER = "ORDER"
+PRIORITY = "PRIORITY"
 DUE = "DUE"
-COLUMN_LABEL = [ID, TITLE, CATEGORY, ORDER, DUE]
+COLUMN_LABEL = [ID, TITLE, CATEGORY, PRIORITY, DUE]
 
 # 각 행의 라벨 공백
 SPACE_ID = int((WIDTH_ID - len(ID)) / 2)
 SPACE_TITLE = int((WIDTH_TITLE - len(TITLE)) / 2)
 SPACE_CATEGORY = int((WIDTH_CATEGORY - len(CATEGORY)) / 2)
-SPACE_ORDER = int((WIDTH_ORDER - len(ORDER)) / 2)
+SPACE_PRIORITY = int((WIDTH_PRIORITY - len(PRIORITY)) / 2)
 SPACE_DUE = int((WIDTH_DUE - len(DUE)) / 2)
-SPACE_COLUMN = [SPACE_ID, SPACE_TITLE, SPACE_CATEGORY, SPACE_ORDER, SPACE_DUE]
+SPACE_COLUMN = [SPACE_ID, SPACE_TITLE, SPACE_CATEGORY, SPACE_PRIORITY, SPACE_DUE]
 
 # 문자열 색 코드
 BLACK = "\x1b[2m"
@@ -47,7 +47,7 @@ def print_list(rows):
     # 각 항목 출력
     for row in rows:
         due = str(row[4])
-        fin = row[5]
+        fin = row[-1]
         # 매 다섯 번 째 열 마다 가로 선 출력
         if count == 5:
             print(line_string())
@@ -104,37 +104,37 @@ def list_finished_unfinished(where=" ", data="ace.db"):
 
     # 기본 옵션
     if where == " ":
-        sql_fin = "select * from todo where finished = 0"
-        sql_unfin = "select * from todo where finished = 1"
+        sql_finished = "select * from todo where finished = 0"
+        sql_unfinished = "select * from todo where finished = 1"
     # 정렬 옵션
     else:
-        sql_fin = "select * from todo where finished = 0 order by " + where
-        sql_unfin = "select * from todo where finished = 1 order by " + where
-    cur.execute(sql_fin)
+        sql_finished = "select * from todo where finished = 0 order by " + where
+        sql_unfinished = "select * from todo where finished = 1 order by " + where
+    cur.execute(sql_finished)
 
-    rows_fin = cur.fetchall()
+    rows_finished = cur.fetchall()
 
-    cur.execute(sql_unfin)
-    rows_unfin = cur.fetchall()
+    cur.execute(sql_unfinished)
+    rows_unfinished = cur.fetchall()
 
     print()
     # 미완료 항목 출력
     print("****Undone Todo List****")
-    print_list(rows_fin)
+    print_list(rows_finished)
 
     print()
     # 완료 항목 출력
     print("****Done Todo List****")
-    print_list(rows_unfin)
+    print_list(rows_unfinished)
 
 
 # 각 항목에 대한 문자열 생성
 def todo_string(color, row, line=WHITE):
     i = 0
     string = ""
-    while i < 5:
+    while i < len(COLUMN_SIZE):
         string += color + str(row[i]) + " " * (COLUMN_SIZE[i] - len(str(row[i])))
-        if i < 4:
+        if i < len(COLUMN_SIZE) - 1:
             string += line + "|"
         else:
             string += RESET
@@ -143,10 +143,10 @@ def todo_string(color, row, line=WHITE):
 
 
 # 구분 선에 대한 문자열 생성
-def line_string(type="-", color=WHITE):
+def line_string(shape="-", color=WHITE):
     string = color
     for size in COLUMN_SIZE:
-        string += type * size
+        string += shape * size
         if size != COLUMN_SIZE[-1]:
             string += "+"
         else:
@@ -158,9 +158,9 @@ def line_string(type="-", color=WHITE):
 def label_string(color, line=WHITE):
     string = ""
     i = 0
-    while i < 5:
+    while i < len(COLUMN_LABEL):
         string += color + " " * SPACE_COLUMN[i] + COLUMN_LABEL[i] + " " * SPACE_COLUMN[i]
-        if i < 4:
+        if i < len(COLUMN_LABEL) - 1:
             string += line + "|"
         else:
             string += RESET

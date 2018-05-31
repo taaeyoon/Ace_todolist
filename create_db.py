@@ -10,9 +10,9 @@ def create_db(data="ace.db"):
 
 		id integer primary key autoincrement,
 		title text not null,
-		due text not null,
         category text not null,
         priority integer,
+        due text not null,
         place text not null,
         comment text not null,
 		finished integer);"""

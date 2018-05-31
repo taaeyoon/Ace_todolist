@@ -8,14 +8,14 @@ def create_db(data="ace.db"):
 
     table_create_sql = """create table if not exists todo(
 
-		id integer primary key autoincrement,
-		what text not null,
-		due text not null,
-        categ text not null,
+        id integer primary key autoincrement,
+        title text not null,
+        due text not null,
+        category text not null,
         pnum integer,
         place text not null,
         comment text not null,
-		finished integer);"""
+        finished integer);"""
 
     cur.execute(table_create_sql)
     conn.close()

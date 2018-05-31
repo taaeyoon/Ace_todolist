@@ -11,8 +11,8 @@ def add_todo():
     title = input("Todo ? ")
     due = input("Due date? (yyyy-mm-dd or mm-dd or dd)")
     # 년도 또는 달 생략 시 현재 년도와 달로 대체
-    if len(d) < 10:
-        d = now_date.convert_due(d)
+    if len(due) < 10:
+        due = now_date.convert_due(due)
     categ = input("Category ? ")
     pnum = input("Order ? (1 to 5)")
     while  (pnum  != '1') and (pnum  != '2') and (pnum  != '3') and (pnum  != '4') and (pnum  != '5') :
@@ -28,7 +28,7 @@ def add_todo():
     else :
         comment = commentdefualt
     data = ((title, due, categ, pnum, place, comment), )
-    sql = "insert into todo (what, due, categ, pnum, place, comment, finished) values (?, ?, ?, ?, ?, ?,0);"
+    sql = "insert into todo (title, due, categ, pnum, place, comment, finished) values (?, ?, ?, ?, ?, ?,0);"
 
     cur.executemany(sql, data)
 

@@ -70,7 +70,6 @@ def run_program():
             search.search()
 
         elif select =="d" :
-            search.search()
             detail.detail()
             
         elif select == 'q':

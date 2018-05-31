@@ -26,11 +26,10 @@ def add_todo():
     edit_comment = input("Edit Comment ? (y / n) ")
     if (edit_comment == 'y') or (edit_comment == 'Y'):
         comment = input("Comment ? ")
-    else:
-        comment = comment_default
-    data = ((title, due, category, priority, place, comment), )
-    sql = "insert into todo (title, due, category, priority, place, comment, finished) values (?, ?, ?, ?, ?, ?,0);"
-
+    else :
+        comment = commentdefault
+    data = ((title, category, priority, due, place, comment), )
+    sql = "insert into todo (title, category, priority, due, place, comment, finished) values (?, ?, ?, ?, ?, ?,0);"
     cur.executemany(sql, data)
 
     conn.commit()

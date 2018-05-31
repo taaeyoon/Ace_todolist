@@ -17,6 +17,7 @@ def add_todo():
     priority = input("Order ? (1 to 5)")
     while  (priority  != '1') and (priority  != '2') and (priority  != '3') and (priority  != '4') and (priority  != '5') :
         priority = input("Order ? (1 to 5)")
+
     placeyn = input("Edit Place ? (y / n) ")
     if (placeyn == 'y') or (placeyn == 'Y') :
         place = input("Place ? ")

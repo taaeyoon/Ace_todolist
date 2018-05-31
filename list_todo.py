@@ -1,15 +1,168 @@
-def list_todo():
-    import sqlite3 
+import sqlite3
+import now_date
 
-    conn = sqlite3.connect("ace.db")
+# 각 행의 크기
+WIDTH_ID = 4
+WIDTH_TITLE = 61
+WIDTH_CATEGORY = 16
+WIDTH_ORDER = 7
+WIDTH_DUE = 11
+COLUMN_SIZE = [WIDTH_ID, WIDTH_TITLE, WIDTH_CATEGORY, WIDTH_ORDER, WIDTH_DUE]
+
+# 각 행의 라벨
+ID = "ID"
+TITLE = "TITLE"
+CATEGORY = "CATEGORY"
+ORDER = "ORDER"
+DUE = "DUE"
+COLUMN_LABEL = [ID, TITLE, CATEGORY, ORDER, DUE]
+
+# 각 행의 라벨 공백
+SPACE_ID = int((WIDTH_ID - len(ID)) / 2)
+SPACE_TITLE = int((WIDTH_TITLE - len(TITLE)) / 2)
+SPACE_CATEGORY = int((WIDTH_CATEGORY - len(CATEGORY)) / 2)
+SPACE_ORDER = int((WIDTH_ORDER - len(ORDER)) / 2)
+SPACE_DUE = int((WIDTH_DUE - len(DUE)) / 2)
+SPACE_COLUMN = [SPACE_ID, SPACE_TITLE, SPACE_CATEGORY, SPACE_ORDER, SPACE_DUE]
+
+# 문자열 색 코드
+BLACK = "\x1b[2m"
+WHITE = "\x1b[30m"
+RED = "\x1b[31m"
+BLUE = "\x1b[34m"
+YELLOW = "\x1b[33m"
+RESET = "\x1b[0m"
+
+
+# 입력 받은 리스트를 콘솔에 출력
+def print_list(rows):
+
+    # 개행을 위한 print()
+    print()
+    # 표의 각 행 라벨 검은 색으로 출력
+    print(label_string(BLACK))
+    # 이중 가로 선 출력
+    print(line_string("="))
+    count = 0
+    # 각 항목 출력
+    for row in rows:
+        due = str(row[4])
+        fin = row[5]
+        # 매 다섯 번 째 열 마다 가로 선 출력
+        if count == 5:
+            print(line_string())
+            count = 0
+        # 만료되지 않은 항목 중 완료하지 않은 항목 노란색으로 출력
+        if fin == 0 and now_date.expired(due):
+            print(todo_string(YELLOW, row))
+            count += 1
+        # 완료하지 않은 상태로 만료된 항목 빨간 색으로 출력
+        elif fin == 0:
+            print(todo_string(RED, row))
+            count += 1
+        # 완료한 항목 파란 색으로 출력
+        else:
+            print(todo_string(BLUE, row))
+            count += 1
+    # 개행을 위한 print
+    print()
+
+
+# 전체 TODO 리스트 출력
+def list_all(where=" ", data="ace.db"):
+    conn = sqlite3.connect(data)
     cur = conn.cursor()
 
-    sql = "select * from todo where 1"
+    # 기본 옵션
+    if where == " ":
+        sql = "select * from todo where 1"
+        rows_fin = []
+    # 남은 Due Date 기준 정렬
+    elif where == 'due asc' or where == 'due desc':
+        sql = "select * from todo where finished = 0 order by " + where
+        sql2 = "select * from todo where finished = 1 order by " + where
+        cur.execute(sql2)
+        rows_fin = cur.fetchall()
+    # 기타 옵션
+    else:
+        sql = "select * from todo order by " + where
+        rows_fin = []
     cur.execute(sql)
 
     rows = cur.fetchall()
-    for row in rows :
-        print(str(row[0]) + " " + row[1] + " " + row[2] + " " + str(row[3]))
+    for row in rows_fin:
+        rows.append(row)
+    conn.close()
 
-    # 개행을 위한 print
+    print_list(rows)
+
+
+# 완료/미완료 TODO 리스트 구분지어 출력
+def list_finished_unfinished(where=" ", data="ace.db"):
+    conn = sqlite3.connect(data)
+    cur = conn.cursor()
+
+    # 기본 옵션
+    if where == " ":
+        sql_fin = "select * from todo where finished = 0"
+        sql_unfin = "select * from todo where finished = 1"
+    # 정렬 옵션
+    else:
+        sql_fin = "select * from todo where finished = 0 order by " + where
+        sql_unfin = "select * from todo where finished = 1 order by " + where
+    cur.execute(sql_fin)
+
+    rows_fin = cur.fetchall()
+
+    cur.execute(sql_unfin)
+    rows_unfin = cur.fetchall()
+
     print()
+    # 미완료 항목 출력
+    print("****Undone Todo List****")
+    print_list(rows_fin)
+
+    print()
+    # 완료 항목 출력
+    print("****Done Todo List****")
+    print_list(rows_unfin)
+
+
+# 각 항목에 대한 문자열 생성
+def todo_string(color, row, line=WHITE):
+    i = 0
+    string = ""
+    while i < 5:
+        string += color + str(row[i]) + " " * (COLUMN_SIZE[i] - len(str(row[i])))
+        if i < 4:
+            string += line + "|"
+        else:
+            string += RESET
+        i += 1
+    return string
+
+
+# 구분 선에 대한 문자열 생성
+def line_string(type="-", color=WHITE):
+    string = color
+    for size in COLUMN_SIZE:
+        string += type * size
+        if size != COLUMN_SIZE[-1]:
+            string += "+"
+        else:
+            string += RESET
+    return string
+
+
+# 라벨에 대한 문자열 생성
+def label_string(color, line=WHITE):
+    string = ""
+    i = 0
+    while i < 5:
+        string += color + " " * SPACE_COLUMN[i] + COLUMN_LABEL[i] + " " * SPACE_COLUMN[i]
+        if i < 4:
+            string += line + "|"
+        else:
+            string += RESET
+        i += 1
+    return string

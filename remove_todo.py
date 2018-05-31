@@ -1,5 +1,6 @@
 import sqlite3
 import list_todo
+import search
 
 
 def remove_todo():
@@ -10,12 +11,12 @@ def remove_todo():
 
     while loop == 'y' or loop == 'Y':
 
-        # 수정 전 리스트 보여주기 -> search code로 변경
-        list_todo.list_all()
+        # s
+        search.search()
 
         sel_id = input("Record id? ")
-        sql = "delete from todo where id == sel_id"
-        cur.execute(sql)
+        sql = "delete from todo where id = ?"
+        cur.execute(sql,(sel_id,))
         conn.commit()
 
         loop = input("anything else you want to remove?/n yes:y no:n ")

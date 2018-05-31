@@ -5,25 +5,25 @@ import now_date
 WIDTH_ID = 4
 WIDTH_TITLE = 61
 WIDTH_CATEGORY = 16
-WIDTH_ORDER = 7
+WIDTH_PRIORITY = 10
 WIDTH_DUE = 11
-COLUMN_SIZE = [WIDTH_ID, WIDTH_TITLE, WIDTH_CATEGORY, WIDTH_ORDER, WIDTH_DUE]
+COLUMN_SIZE = [WIDTH_ID, WIDTH_TITLE, WIDTH_CATEGORY, WIDTH_PRIORITY, WIDTH_DUE]
 
 # 각 행의 라벨
 ID = "ID"
 TITLE = "TITLE"
 CATEGORY = "CATEGORY"
-ORDER = "ORDER"
+PRIORITY = "PRIORITY"
 DUE = "DUE"
-COLUMN_LABEL = [ID, TITLE, CATEGORY, ORDER, DUE]
+COLUMN_LABEL = [ID, TITLE, CATEGORY, PRIORITY, DUE]
 
 # 각 행의 라벨 공백
 SPACE_ID = int((WIDTH_ID - len(ID)) / 2)
 SPACE_TITLE = int((WIDTH_TITLE - len(TITLE)) / 2)
 SPACE_CATEGORY = int((WIDTH_CATEGORY - len(CATEGORY)) / 2)
-SPACE_ORDER = int((WIDTH_ORDER - len(ORDER)) / 2)
+SPACE_PRIORITY = int((WIDTH_PRIORITY - len(PRIORITY)) / 2)
 SPACE_DUE = int((WIDTH_DUE - len(DUE)) / 2)
-SPACE_COLUMN = [SPACE_ID, SPACE_TITLE, SPACE_CATEGORY, SPACE_ORDER, SPACE_DUE]
+SPACE_COLUMN = [SPACE_ID, SPACE_TITLE, SPACE_CATEGORY, SPACE_PRIORITY, SPACE_DUE]
 
 # 문자열 색 코드
 BLACK = "\x1b[2m"
@@ -132,9 +132,9 @@ def list_finished_unfinished(where=" ", data="ace.db"):
 def todo_string(color, row, line=WHITE):
     i = 0
     string = ""
-    while i < 5:
+    while i < len(COLUMN_SIZE):
         string += color + str(row[i]) + " " * (COLUMN_SIZE[i] - len(str(row[i])))
-        if i < 4:
+        if i < len(COLUMN_SIZE) - 1:
             string += line + "|"
         else:
             string += RESET
@@ -158,9 +158,9 @@ def line_string(type="-", color=WHITE):
 def label_string(color, line=WHITE):
     string = ""
     i = 0
-    while i < 5:
+    while i < len(COLUMN_LABEL):
         string += color + " " * SPACE_COLUMN[i] + COLUMN_LABEL[i] + " " * SPACE_COLUMN[i]
-        if i < 4:
+        if i < len(COLUMN_LABEL) - 1:
             string += line + "|"
         else:
             string += RESET

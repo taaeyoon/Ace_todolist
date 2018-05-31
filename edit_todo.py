@@ -21,41 +21,31 @@ def edit():
     if 'TODO' in what_to_do:
         todo = input("Todo ? ")
         sql = "UPDATE todo SET title=? WHERE id=?"
-        data = (
-            (todo, id_number),
-        )
+        data = ((todo, id_number), )
         cur.executemany(sql, data)
 
     if 'DUE' in what_to_do:
         due = input("Due date ? ")
         sql = "UPDATE todo SET due=? WHERE id=?"
-        data = (
-            (due, id_number),
-        )
+        data = ((due, id_number), )
         cur.executemany(sql, data)
 
     if 'CAT' in what_to_do:
         cat = input("Category? ")
         sql = "UPDATE todo SET category=? WHERE id=?"
-        data = (
-            (cat, id_number),
-        )
+        data = ((cat, id_number), )
         cur.excutemany(sql, data)
 
     if 'ORDER' in what_to_do:
         order = input("Order? ")
         sql = "UPDATE todo SET priority=? WHERE id=?"
-        data = (
-            (order, id_number),
-        )
+        data = ((order, id_number), )
         cur.executemany(sql, data)
 
     if 'FIN' in what_to_do:
         fin = input("Finished (1: yes, 0: no)? ")
         sql = "UPDATE todo SET finished=? WHERE id=?"
-        data = (
-            (fin, id_number),
-        )
+        data = ((fin, id_number), )
         cur.executemany(sql, data)
 
     conn.commit()

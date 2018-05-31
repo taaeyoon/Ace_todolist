@@ -2,6 +2,8 @@ import list_todo
 import edit_todo
 import create_db
 import add_todo
+import search
+import detail 
 
 COLUMN = ["title", "category", "priority", "due"]
 SORT = ["asc", "desc"]
@@ -31,7 +33,7 @@ def run_program():
     # 개행을 위한 print()
     print()
     while 1:
-        select = input("Choose what to do:\n(a: add data, l : List todo, m: Modify todo, q: Quit)? ")
+        select = input("Choose what to do:\n(a: add data, l : List todo, m: Modify todo, s: Search, d: detail, q: Quit)? ")
         # 개행을 위한 print()
         print()
         if select == 'a':
@@ -57,6 +59,14 @@ def run_program():
                 status = sort(int(option), status, int(select2)-1)
         elif select == 'm':
             edit_todo.edit()
+
+        elif select == "s":
+            search.search()
+
+        elif select =="d" :
+            search.search()
+            detail.detail()
+            
         elif select == 'q':
             break
 

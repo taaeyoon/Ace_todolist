@@ -6,11 +6,13 @@ def stat_todo() :
     cur = conn.cursor()
 
     NOW = datetime.now()
+    categorylist = ['']
     finishednumber = 0
     yetnumber = 0
     listallnumber = 0
     categorynumber = 0
     dueovernumber = 0
+    i = 0
 
     sql = "select * from todo where 1"
     cur.execute(sql)
@@ -18,8 +20,9 @@ def stat_todo() :
     conn.close()
 
     for row in rows:
-        categorynumber = len(row)
         listallnumber = listallnumber + 1
+        if row[2] not in categorylist[i] :
+            categorylist.append(row[2])
         if row[7] == 1 :
             finishednumber = finishednumber + 1
         else :
@@ -38,9 +41,10 @@ def stat_todo() :
                             dueovernumber = dueovernumber + 1
                         else :
                             dueovernumber = dueovernumber
+    categorynumber = len(categorylist) - 1
 
     print("percentage of finished list : " + str(round((finishednumber/listallnumber)*100, 2)))
-    print("percentage of finished list : " + str(round((yetnumber/listallnumber)*100, 2)))
+    print("percentage of unfinished list : " + str(round((yetnumber/listallnumber)*100, 2)))
     print("number of lists : " + str(listallnumber))
     print("number of categories : " + str(categorynumber))
-    print("numberof overdue lists : " + str(dueovernumber))
+    print("number of overdue lists : " + str(dueovernumber))

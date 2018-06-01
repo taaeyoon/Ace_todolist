@@ -3,6 +3,7 @@ import edit_todo
 import create_db
 import add_todo
 import remove_todo
+import stat_todo
 import search
 import detail 
 
@@ -35,7 +36,8 @@ def run_program():
     # 개행을 위한 print()
     print()
     while 1:
-        select = input("Choose what to do:\n(a: add data, l : List todo, e: Edit todo, s: Search, d: detail, q: Quit)? ")
+        select = input("Choose what to do:\n(a: add data, l : List todo, m: Modify todo, S: stat todo, s: Search, d: detail, q: Quit)? ")
+
         # 개행을 위한 print()
         print()
         if select == 'a':
@@ -66,11 +68,13 @@ def run_program():
         elif select == 'r':
             remove_todo.remove_todo()
 
+        elif select == 'S':
+            stat_todo.stat_todo()
+
         elif select == "s":
             search.search()
 
         elif select =="d" :
-            search.search()
             detail.detail()
             
 

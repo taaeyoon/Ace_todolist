@@ -1,5 +1,4 @@
 import sqlite3
-import list_todo
 import search
 
 
@@ -16,7 +15,7 @@ def remove_todo():
 
         sel_id = input("Record id? ")
         sql = "delete from todo where id = ?"
-        cur.execute(sql,(sel_id,))
+        cur.execute(sql, (sel_id, ))
         conn.commit()
 
         loop = input("\nanything else you want to remove?/n yes:y no:n ")

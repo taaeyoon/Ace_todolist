@@ -2,6 +2,7 @@ import sqlite3
 import list_todo
 import search
 
+
 def edit_todo():
     conn = sqlite3.connect("ace.db")
     cur = conn.cursor()
@@ -32,7 +33,7 @@ def edit_todo():
         elif 'due' in select:
             sel_due = input("\nDue date? ")
             cur.execute("update todo set due = ? where id =?", (sel_due, sel_id))
-            
+
         # 중요도 변경
         elif 'priority' in select:
             sel_priority = input("\nPriority? ")

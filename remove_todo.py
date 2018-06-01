@@ -11,7 +11,7 @@ def remove_todo():
 
     while loop == 'y' or loop == 'Y':
 
-        # s
+        # 검색코드
         search.search()
 
         sel_id = input("Record id? ")

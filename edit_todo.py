@@ -46,10 +46,13 @@ def edit_todo():
         elif 'due' in select:
             sel_due = input("\nDue date? ")
             cur.execute("update todo set due = ? where id =?", (sel_due, sel_id))
-            while due_check.due_check(due) == False:
+            while due_check.due_check(sel_due) == False:
                 print("wrong input. type again.")
                 print()
-                due = input("Due date? (yyyy-mm-dd or mm-dd or dd)")
+                sel_due = input("Due date? (yyyy-mm-dd or mm-dd or dd)")
+                print()
+                if len(sel_due) < 10:
+                    sel_due = now_date.convert_due(sel_due)
 
         # 중요도 변경
         elif 'priority' in select:

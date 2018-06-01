@@ -32,7 +32,7 @@ def search():
 
     elif search_type == "d":
         search_due = input("what due: ")
-        search_list = contain_thing(search_due, 4)
+        search_list = contain_thing(search_due, 3)
         printer.print_list(search_list)
 
     elif search_type == "c":

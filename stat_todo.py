@@ -43,8 +43,13 @@ def stat_todo() :
                             dueovernumber = dueovernumber
     categorynumber = len(categorylist) - 1
 
-    print("percentage of finished list : " + str(round((finishednumber/listallnumber)*100, 2)))
-    print("percentage of unfinished list : " + str(round((yetnumber/listallnumber)*100, 2)))
+    print("percentage of finished list : " + str(round((finishednumber/listallnumber)*100, 2)) + "% ")
+    print()
+    print("percentage of unfinished list : " + str(round((yetnumber/listallnumber)*100, 2)) + "% ")
+    print()
     print("number of lists : " + str(listallnumber))
+    print()
     print("number of categories : " + str(categorynumber))
+    print()
     print("number of overdue lists : " + str(dueovernumber))
+    print()

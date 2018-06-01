@@ -7,7 +7,7 @@ WIDTH_TITLE = 61
 WIDTH_CATEGORY = 16
 WIDTH_PRIORITY = 10
 WIDTH_DUE = 11
-COLUMN_SIZE = [WIDTH_ID, WIDTH_TITLE, WIDTH_CATEGORY, WIDTH_PRIORITY, WIDTH_DUE]
+COLUMN_SIZE = [WIDTH_ID, WIDTH_TITLE, WIDTH_CATEGORY, WIDTH_DUE, WIDTH_PRIORITY]
 
 # 각 행의 라벨
 ID = "ID"
@@ -15,7 +15,7 @@ TITLE = "TITLE"
 CATEGORY = "CATEGORY"
 PRIORITY = "PRIORITY"
 DUE = "DUE"
-COLUMN_LABEL = [ID, TITLE, CATEGORY, PRIORITY, DUE]
+COLUMN_LABEL = [ID, TITLE, CATEGORY, DUE, PRIORITY]
 
 # 각 행의 라벨 공백
 SPACE_ID = int((WIDTH_ID - len(ID)) / 2)
@@ -23,7 +23,7 @@ SPACE_TITLE = int((WIDTH_TITLE - len(TITLE)) / 2)
 SPACE_CATEGORY = int((WIDTH_CATEGORY - len(CATEGORY)) / 2)
 SPACE_PRIORITY = int((WIDTH_PRIORITY - len(PRIORITY)) / 2)
 SPACE_DUE = int((WIDTH_DUE - len(DUE)) / 2)
-SPACE_COLUMN = [SPACE_ID, SPACE_TITLE, SPACE_CATEGORY, SPACE_PRIORITY, SPACE_DUE]
+SPACE_COLUMN = [SPACE_ID, SPACE_TITLE, SPACE_CATEGORY, SPACE_DUE, SPACE_PRIORITY]
 
 # 문자열 색 코드
 BLACK = "\x1b[2m"
@@ -46,7 +46,7 @@ def print_list(rows):
     count = 0
     # 각 항목 출력
     for row in rows:
-        due = str(row[4])
+        due = str(row[3])
         fin = row[-1]
         # 매 다섯 번 째 열 마다 가로 선 출력
         if count == 5:
@@ -95,6 +95,8 @@ def list_all(where=" ", data="ace.db"):
     conn.close()
 
     print_list(rows)
+    print("(※ RED: Expired, BLUE: Finished, YELLOW : Unfinished)")
+    print('\n')
 
 
 # 완료/미완료 TODO 리스트 구분지어 출력
@@ -126,6 +128,8 @@ def list_finished_unfinished(where=" ", data="ace.db"):
     # 완료 항목 출력
     print("****Done Todo List****")
     print_list(rows_unfinished)
+    print("(※ RED: Expired, BLUE: Finished, YELLOW : Unfinished)")
+    print('\n')
 
 
 # 각 항목에 대한 문자열 생성
@@ -133,7 +137,11 @@ def todo_string(color, row, line=WHITE):
     i = 0
     string = ""
     while i < len(COLUMN_SIZE):
-        string += color + str(row[i]) + " " * (COLUMN_SIZE[i] - len(str(row[i])))
+        if i != 4:
+            element = str(row[i])
+        else:
+            element = str(star(row[i]))
+        string += color + element + " " * (COLUMN_SIZE[i] - len(element))
         if i < len(COLUMN_SIZE) - 1:
             string += line + "|"
         else:
@@ -166,3 +174,7 @@ def label_string(color, line=WHITE):
             string += RESET
         i += 1
     return string
+
+
+def star(number, star1="☆", star2="★"):
+    return star2 * number + star1 * (5 - number)

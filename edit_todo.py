@@ -20,7 +20,7 @@ def edit_todo():
             "What do you want to edit? \n Title => title"
             "\n Due date => due \n Finished => fin"
             "\n priority => priority \n category = > category"
-            "\n place = > place \n comment = > comment")
+            "\n place = > place \n comment = > comment\n")
 
     # 변경내용 작성
         # 타이틀 변경

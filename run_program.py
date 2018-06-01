@@ -2,6 +2,7 @@ import list_todo
 import edit_todo
 import create_db
 import add_todo
+import remove_todo
 import stat_todo
 import search
 import detail 
@@ -35,8 +36,8 @@ def run_program():
     # 개행을 위한 print()
     print()
     while 1:
+        select = input("Choose what to do:\n(a: Add data, l : List todo, e: Edit todo, S: Stat todo, s: Search, d: Detail, r: Remove, q: Quit)? ")
 
-        select = input("Choose what to do:\n(a: add data, l : List todo, m: Modify todo, S: stat todo, s: Search, d: detail, q: Quit)? ")
         # 개행을 위한 print()
         print()
         if select == 'a':
@@ -60,8 +61,13 @@ def run_program():
                 option = OPTIONS.index(option) + 1
                 # 옵션에 따른 정렬 및 출력 함수
                 status = sort(int(option), status, int(select2)-1)
-        elif select == 'm':
-            edit_todo.edit()
+
+
+        elif select == 'e':
+            edit_todo.edit_todo()
+
+        elif select == 'r' :
+            remove_todo.remove_todo()
 
         elif select == 'S':
             stat_todo.stat_todo()
@@ -71,7 +77,7 @@ def run_program():
 
         elif select =="d" :
             detail.detail()
-            
+
         elif select == 'q':
             break
 

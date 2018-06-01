@@ -9,7 +9,7 @@ def detail():
     conn = sqlite3.connect("ace.db")
     cur = conn.cursor()
 
-    col_list = ["id", "title", "category", "priority", "due", "place", "comment", "finished"]
+    col_list = ["id", "title", "category", "due", "priority","place", "comment", "finished"]
 
     # 세부사항을 보고 싶은 항목 찾기, answer: 원하는 항목을 찾았는 지 찾지 못했는 지 확인하는 변수
     answer = "n"

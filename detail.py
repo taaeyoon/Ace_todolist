@@ -9,6 +9,8 @@ def detail():
     conn = sqlite3.connect("ace.db")
     cur = conn.cursor()
 
+    detail_answer_list = ["y","n"]
+
     col_list = ["id", "title", "category", "due", "priority","place", "comment", "finished"]
 
     # 세부사항을 보고 싶은 항목 찾기, answer: 원하는 항목을 찾았는 지 찾지 못했는 지 확인하는 변수
@@ -18,6 +20,12 @@ def detail():
         search.search()
         print("Did you find what you want to look for?")
         answer = input("(y: Yes, n: No) : ")
+
+        while(answer not in detail_answer_list):
+            print("\nIncorrect type")
+            print("Did you find what you want to look for?")
+            answer = input("(y: Yes, n: No) : ")
+            
         print()
 
     # 세부사항을 보고 싶은 항목의 id 선택하기

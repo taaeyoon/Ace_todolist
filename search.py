@@ -10,9 +10,16 @@ def search():
 
     # 검색한 항목을 담은 list
     search_list = []
+    search_answer_list = ["i","d","t","c"]
 
     # 어떤 방법으로 찾고 싶은 지에 대한 input 함수 / 조건문
     search_type = input("How do you want to search? (i: id, t: title, d: due, c: category) ")
+    
+    while(search_type not in search_answer_list):
+        print()
+        print("Incorrect type")
+        search_type = input("How do you want to search? (i: id, t: title, d: due, c: category) ")
+
 
     if search_type == "i":
         search_id = input("what id: ")

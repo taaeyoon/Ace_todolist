@@ -19,6 +19,6 @@ def remove_todo():
         cur.execute(sql,(sel_id,))
         conn.commit()
 
-        loop = input("anything else you want to remove?/n yes:y no:n ")
+        loop = input("\nanything else you want to remove?/n yes:y no:n ")
 
     conn.close()

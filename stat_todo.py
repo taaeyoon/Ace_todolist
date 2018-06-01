@@ -1,7 +1,10 @@
 import sqlite3
 from datetime import datetime
 
-def stat_todo() :
+NOW = datetime.now()
+
+
+def stat_todo():
     conn = sqlite3.connect("ace.db")
     cur = conn.cursor()
 
@@ -27,17 +30,17 @@ def stat_todo() :
             finishednumber = finishednumber + 1
         else :
             yetnumber = yetnumber + 1
-            if int(row[4][:4]) < int(NOW.year) :
+            if int(row[3][:4]) < int(NOW.year) :
                 dueovernumber = dueovernumber + 1
             else :
-                if row[4][5] == '0' :
-                    if int(row[4][6]) < int(NOW.month) :
+                if row[3][5] == '0' :
+                    if int(row[3][6]) < int(NOW.month) :
                         dueovernumber = dueovernumber + 1
                 else :
-                    if int(row[4][5:7]) < int(NOW.month) :
+                    if int(row[3][5:7]) < int(NOW.month) :
                         dueovernumber = dueovernumber + 1
                     else :
-                        if int(row[4][8:10]) < int(NOW.day) :
+                        if int(row[3][8:10]) < int(NOW.day) :
                             dueovernumber = dueovernumber + 1
                         else :
                             dueovernumber = dueovernumber

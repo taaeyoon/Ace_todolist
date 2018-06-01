@@ -1,7 +1,8 @@
 # todo table에 존재하는 todo 항목을 검색하여 찾는 함수...
 
 import sqlite3
-import list_todo as list 
+import list_todo as printer
+
 
 def search():
     conn = sqlite3.connect("ace.db")
@@ -9,35 +10,35 @@ def search():
 
     # 검색한 항목을 담은 list
     search_list = []
-    
+
     # 어떤 방법으로 찾고 싶은 지에 대한 input 함수 / 조건문
     search_type = input("How do you want to search? (i: id, t: title, d: due, c: category) ")
 
-    if( search_type == "i"):
+    if search_type == "i":
         search_id = input("what id: ")
         sql = "select * from todo where id=?"
-        cur.execute(sql,(search_id,))
+        cur.execute(sql, (search_id, ))
 
         rows = cur.fetchall()
-        for row in rows :
+        for row in rows:
             search_list.append(row)
 
-        list.print_list(search_list)
+        printer.print_list(search_list)
 
-    elif(search_type == "t") :
+    elif search_type == "t":
         search_title = input("what title: ")
-        search_list = contain_thing(search_title,1)
-        list.print_list(search_list)
+        search_list = contain_thing(search_title, 1)
+        printer.print_list(search_list)
 
-    elif(search_type == "d") :
+    elif search_type == "d":
         search_due = input("what due: ")
-        search_list = contain_thing(search_due,4) 
-        list.print_list(search_list)
+        search_list = contain_thing(search_due, 4)
+        printer.print_list(search_list)
 
-    elif(search_type == "c"):
+    elif search_type == "c":
         search_category = input("whar category: ")
-        search_list = contain_thing(search_category,2)
-        list.print_list(search_list)
+        search_list = contain_thing(search_category, 2)
+        printer.print_list(search_list)
 
     cur.close()
     conn.close()
@@ -46,8 +47,8 @@ def search():
 
 
 # 검색하는 단어를 포함하는 항목 모두 찾기
-def contain_thing(what_search,num_index):
-    
+def contain_thing(what_search, num_index):
+
     conn = sqlite3.connect("ace.db")
     cur = conn.cursor()
 
@@ -62,11 +63,11 @@ def contain_thing(what_search,num_index):
     cur.execute(sql)
 
     rows = cur.fetchall()
-    for row in rows :
+    for row in rows:
         all_list.append(row)
 
     # 검색하는 단어를 포함하는 항목 모두 찾기
-    for elem in all_list :
+    for elem in all_list:
         if what_search in elem[num_index]:
             contain_list.append(elem)
 

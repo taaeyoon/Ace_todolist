@@ -18,16 +18,16 @@ def add_todo():
     while (priority != '1') and (priority != '2') and (priority != '3') and (priority != '4') and (priority != '5'):
         priority = input("Priority ? (1 to 5)")
 
-    edit_place = input("Edit Place ? (y / n) ")
+    edit_place = input("Want to add Place ? (y / n) ")
     if (edit_place == 'y') or (edit_place == 'Y'):
         place = input("Place ? ")
     else:
         place = place_default
-    edit_comment = input("Edit Comment ? (y / n) ")
+    edit_comment = input("Want to add Comment ? (y / n) ")
     if (edit_comment == 'y') or (edit_comment == 'Y'):
         comment = input("Comment ? ")
     else :
-        comment = commentdefault
+        comment = comment_default
     data = ((title, category, priority, due, place, comment), )
     sql = "insert into todo (title, category, priority, due, place, comment, finished) values (?, ?, ?, ?, ?, ?,0);"
     cur.executemany(sql, data)

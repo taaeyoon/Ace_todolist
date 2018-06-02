@@ -2,6 +2,7 @@ import sqlite3
 import list_todo
 import search
 import input_check
+import now_date
 
 
 def edit_todo():
@@ -42,12 +43,15 @@ def edit_todo():
 
         # 기한 변경
         elif 'due' in select:
-            sel_due = input("\nDue date? ")
-            cur.execute("update todo set due = ? where id =?", (sel_due, target_id))
-            while not input_check.due_check(due):
+            set_due = input("\nDue date? ")
+            while not input_check.due_check(set_due):
                 print("wrong input. type again.")
                 print()
-                due = input("Due date? (yyyy-mm-dd or mm-dd or dd)")
+                set_due = input("Due date? (yyyy-mm-dd or mm-dd or dd)")
+                print()
+                if len(set_due) < 10:
+                    set_due = now_date.convert_due(set_due)
+            cur.execute("update todo set due = ? where id =?", (set_due, target_id))
 
         # 중요도 변경
         elif 'priority' in select:

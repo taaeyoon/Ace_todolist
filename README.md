@@ -41,7 +41,7 @@ If you want to run action of ACE, confirm options(-h or --help)
 
 ```
 
-If you want to run action of Ace_todolist, cofirm options(-h or --help)
+If you want to run action of Ace_todolist, confirm options(-h or --help)
 
 ```
 $ Ace_todolist --help

@@ -1,6 +1,9 @@
 import sqlite3
 import now_date
 
+COLUMN = ["title", "category", "priority", "due"]
+SORT = ["asc", "desc"]
+
 # 각 행의 크기
 WIDTH_ID = 4
 WIDTH_TITLE = 61
@@ -178,3 +181,20 @@ def label_string(color, line=WHITE):
 
 def star(number, star1="☆", star2="★"):
     return star2 * number + star1 * (5 - number)
+
+
+def sort(option, status, finished):
+    if finished == 0:
+        if option == status:
+            list_all(COLUMN[option-1] + " " + SORT[1])
+            return 0
+        else:
+            list_all(COLUMN[option-1] + " " + SORT[0])
+            return option
+    else:
+        if option == status:
+            list_finished_unfinished(COLUMN[option-1] + " " + SORT[1])
+            return 0
+        else:
+            list_finished_unfinished(COLUMN[option-1] + " " + SORT[0])
+            return option

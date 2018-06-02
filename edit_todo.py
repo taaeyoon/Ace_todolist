@@ -1,7 +1,7 @@
 import sqlite3
 import list_todo
 import search
-import due_check
+import input_check
 
 
 def edit_todo():
@@ -17,36 +17,34 @@ def edit_todo():
         search.search()
 
         # 변경할 항목 선택
-        sel_id = input("Record id? ")
-        while not sel_id.isdigit():
-            sel_id = input("Record id? ")
-        list = ['title', 'due', 'due', 'fin', 'priority', 'category', 'place', 'comment']
+        target_id = input("Record id? ")
+        while not target_id.isdigit():
+            target_id = input("Record id? ")
+        column_list = ['title', 'due', 'due', 'fin', 'priority', 'category', 'place', 'comment']
 
-        select = input(
-            "\nWhat do you want to edit? \n\n Title => title"
-            "\n Due date => due \n Finished => fin"
-            "\n priority => priority \n category = > category"
-            "\n place = > place \n comment = > comment\n")
+        select = input("\nWhat do you want to edit? \n\n Title => title"
+                       "\n Due date => due \n Finished => fin"
+                       "\n priority => priority \n category = > category"
+                       "\n place = > place \n comment = > comment\n")
 
-        while select not in list:
+        while select not in column_list:
             print("Incorrect type")
-            select = input(
-            "\nWhat do you want to edit? \n\n Title => title"
-            "\n Due date => due \n Finished => fin"
-            "\n priority => priority \n category = > category"
-            "\n place = > place \n comment = > comment\n")
+            select = input("\nWhat do you want to edit?\n\n Title => title"
+                           "\n Due date => due\n Finished => fin"
+                           "\n priority => priority\n category = > category"
+                           "\n place = > place\n comment = > comment\n")
 
     # 변경내용 작성
         # 타이틀 변경
         if 'title' in select:
             sel_title = input("\nTitle?")
-            cur.execute("update todo set title = ? where id =?", (sel_title, sel_id))
+            cur.execute("update todo set title = ? where id =?", (sel_title, target_id))
 
         # 기한 변경
         elif 'due' in select:
             sel_due = input("\nDue date? ")
-            cur.execute("update todo set due = ? where id =?", (sel_due, sel_id))
-            while due_check.due_check(due) == False:
+            cur.execute("update todo set due = ? where id =?", (sel_due, target_id))
+            while not input_check.due_check(due):
                 print("wrong input. type again.")
                 print()
                 due = input("Due date? (yyyy-mm-dd or mm-dd or dd)")
@@ -54,35 +52,35 @@ def edit_todo():
         # 중요도 변경
         elif 'priority' in select:
             sel_priority = input("\nPriority? ")
-            cur.execute("update todo set priority = ? where id =?", (sel_priority, sel_id))
-            while (sel_priority != '1') and (sel_priority != '2') and (sel_priority != '3') and (sel_priority != '4') and (
-                    sel_priority != '5'):
+            cur.execute("update todo set priority = ? where id =?", (sel_priority, target_id))
+            while input_check.priority_check(sel_priority):
+                print("Wrong input")
                 sel_priority = input("Priority ? (1 to 5) ")
-            cur.execute("update todo set priority = ? where id =?", (sel_priority, sel_id))
-
+            cur.execute("update todo set priority = ? where id =?", (sel_priority, target_id))
 
         # 완료/미완료 변경
         elif 'fin' in select:
             sel_finished = input("\nFinished (1: yes, 0: no)? ")
-            cur.execute("update todo set finished = ? where id =?", (sel_finished, sel_id))
-            while (sel_finished != '1') and (sel_finished !='0'):
+            cur.execute("update todo set finished = ? where id =?", (sel_finished, target_id))
+            while not input_check.finished_check(sel_finished):
+                print("Wrong input")
                 sel_finished = input("\nFinished (1: yes, 0: no)? ")
-                cur.execute("update todo set finished = ? where id =?", (sel_finished, sel_id))
+                cur.execute("update todo set finished = ? where id =?", (sel_finished, target_id))
 
         # 카테고리 변경
         elif 'category' in select:
             sel_category = input("\nCategory? ")
-            cur.execute("update todo set category = ? where id =?", (sel_category, sel_id))
+            cur.execute("update todo set category = ? where id =?", (sel_category, target_id))
 
         # 장소 변경
         elif 'place' in select:
             sel_place = input("\nPlace? ")
-            cur.execute("update todo set place = ? where id =?", (sel_place, sel_id))
+            cur.execute("update todo set place = ? where id =?", (sel_place, target_id))
 
         # 세부사항 변경
         elif 'comment' in select:
             sel_comment = input("\nComment? ")
-            cur.execute("update todo set comment = ? where id =?", (sel_comment, sel_id))
+            cur.execute("update todo set comment = ? where id =?", (sel_comment, target_id))
 
         conn.commit()
 

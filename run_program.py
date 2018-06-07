@@ -72,19 +72,19 @@ def run_program():
                 option = UPWARD_OPTIONS.index(option) + 1
             # 옵션에 따른 정렬 및 출력 함수
             status = list_todo.sort(int(option), status, select2)
-    elif args.edit and args.search:
+    elif args.edit:
         target = args.edit
         if not args.search:
             searching = None
         else:
             searching = args.search
         edit_todo.edit_todo(searching, target)
-    elif args.detail and args.search:
+    elif args.detail:
         if not args.search:
             detail.detail()
         else:
             detail.detail(args.search)
-    elif args.remove and args.search:
+    elif args.remove:
         if not args.search:
             remove_todo.remove_todo()
         else:

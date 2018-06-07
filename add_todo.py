@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import sqlite3
 import now_date
 import input_check
@@ -17,13 +19,17 @@ def add_todo():
 
     due = input("Due date? (yyyy-mm-dd or mm-dd or dd)")
     print()
-    while not input_check.due_check(due):
-        print("wrong input. type again.")
-        print()
-        due = input("Due date? (yyyy-mm-dd or mm-dd or dd)")
-        print()
-        if len(due) < 10:
-            due = now_date.convert_due(due)
+    while not input_check.due_check(due) or not input_check.date_check(due):
+        if not input_check.due_check(due):
+            print("Wrong input. Type again.")
+            print()
+            due = input("Due date? (yyyy-mm-dd or mm-dd or dd)")
+            print()
+        elif not input_check.date_check(due):
+            print("Invalid date or month. Type again.")
+            print()
+            due = input("Due date? (yyyy-mm-dd or mm-dd or dd)")
+            print()
     # 년도 또는 달 생략 시 현재 년도와 달로 대체
     if len(due) < 10:
         due = now_date.convert_due(due)
@@ -34,7 +40,7 @@ def add_todo():
     priority = input("Priority ? (1 to 5) ")
     print()
     while not input_check.priority_check(priority):
-        print("wrong input. type again.")
+        print("Wrong input. Type again.")
         print()
         priority = input("Priority ? (1 to 5) ")
         print()
@@ -42,7 +48,7 @@ def add_todo():
     edit_place = input("Want to add Place ? (y / n) ")
     print()
     while edit_place not in yn_list:
-        print("wrong input. type again.")
+        print("Wrong input. Type again.")
         print()
         edit_place = input("Want to add Place ? (y / n) ")
         print()
@@ -55,7 +61,7 @@ def add_todo():
     edit_comment = input("Want to add Comment ? (y / n) ")
     print()
     while edit_comment not in yn_list:
-        print("wrong input. type again.")
+        print("Wrong input. Type again.")
         print()
         edit_comment = input("Want to add Comment ? (y / n) ")
         print()

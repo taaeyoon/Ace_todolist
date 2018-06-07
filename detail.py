@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
+
 # 선택한 항목의 세부사항을 보여주는 함수
 
 import sqlite3
 import search
 
 
-def detail():
+def detail(searching=None):
 
     conn = sqlite3.connect("ace.db")
     cur = conn.cursor()
@@ -17,7 +19,7 @@ def detail():
     answer = "n"
     while answer == "n":
         print("Searching item that you want to see details...")
-        search.search()
+        lists = search.search(searching)
         print("Did you find what you want to look for?")
         answer = input("(y: Yes, n: No) : ")
 
@@ -29,7 +31,10 @@ def detail():
         print()
 
     # 세부사항을 보고 싶은 항목의 id 선택하기
-    detail_id = input("choose id of item that you want to see details: ")
+    if len(lists) != 1:
+        detail_id = input("choose id of item that you want to see details: ")
+    else:
+        detail_id = lists[0][0]
 
     sql = "select * from todo where id=?"
     cur.execute(sql, (detail_id, ))

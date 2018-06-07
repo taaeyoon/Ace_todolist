@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import sqlite3
 import list_todo
 import search
@@ -5,7 +7,7 @@ import input_check
 import now_date
 
 
-def edit_todo():
+def edit_todo(searching, target):
     conn = sqlite3.connect("ace.db")
     cur = conn.cursor()
 
@@ -15,25 +17,36 @@ def edit_todo():
     while loop == 'y' or loop == 'Y':
 
         # 검색코드
-        search.search()
+        lists = search.search(searching)
+
+        while len(lists) == 0:
+            print("Nothing found! Please retry.")
+            print()
+            lists = search.search(searching)
 
         # 변경할 항목 선택
-        target_id = input("Record id? ")
-        while not target_id.isdigit():
+        if len(lists) != 1:
             target_id = input("Record id? ")
+            while not target_id.isdigit():
+                target_id = input("Record id? ")
+        else:
+            target_id = lists[0][0]
+
         column_list = ['title', 'due', 'due', 'fin', 'priority', 'category', 'place', 'comment']
+        if target is None:
+            select = input("\nWhat do you want to edit? \n\n Title => title"
+                           "\n Due date => due \n Finished => fin"
+                           "\n priority => priority \n category = > category"
+                           "\n place = > place \n comment = > comment\n")
 
-        select = input("\nWhat do you want to edit? \n\n Title => title"
-                       "\n Due date => due \n Finished => fin"
-                       "\n priority => priority \n category = > category"
-                       "\n place = > place \n comment = > comment\n")
-
-        while select not in column_list:
-            print("Incorrect type")
-            select = input("\nWhat do you want to edit?\n\n Title => title"
-                           "\n Due date => due\n Finished => fin"
-                           "\n priority => priority\n category = > category"
-                           "\n place = > place\n comment = > comment\n")
+            while select not in column_list:
+                print("Incorrect type")
+                select = input("\nWhat do you want to edit?\n\n Title => title"
+                               "\n Due date => due\n Finished => fin"
+                               "\n priority => priority\n category = > category"
+                               "\n place = > place\n comment = > comment\n")
+        else:
+            select = target
 
     # 변경내용 작성
         # 타이틀 변경
@@ -57,7 +70,7 @@ def edit_todo():
         elif 'priority' in select:
             sel_priority = input("\nPriority? ")
             cur.execute("update todo set priority = ? where id =?", (sel_priority, target_id))
-            while input_check.priority_check(sel_priority):
+            while not input_check.priority_check(sel_priority):
                 print("Wrong input")
                 sel_priority = input("Priority ? (1 to 5) ")
             cur.execute("update todo set priority = ? where id =?", (sel_priority, target_id))

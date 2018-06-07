@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import sqlite3
 import now_date
 
@@ -29,11 +31,12 @@ SPACE_DUE = int((WIDTH_DUE - len(DUE)) / 2)
 SPACE_COLUMN = [SPACE_ID, SPACE_TITLE, SPACE_CATEGORY, SPACE_DUE, SPACE_PRIORITY]
 
 # 문자열 색 코드
-BLACK = "\x1b[2m"
-WHITE = "\x1b[30m"
+BLACK = "\x1b[30m"
+WHITE = "\x1b[37m"
 RED = "\x1b[31m"
 BLUE = "\x1b[34m"
 YELLOW = "\x1b[33m"
+MAGENTA = "\x1b[35m"
 RESET = "\x1b[0m"
 
 
@@ -170,9 +173,9 @@ def label_string(color, line=WHITE):
     string = ""
     i = 0
     while i < len(COLUMN_LABEL):
-        string += color + " " * SPACE_COLUMN[i] + COLUMN_LABEL[i] + " " * SPACE_COLUMN[i]
+        string += "\x1b[1m" + color + " " * SPACE_COLUMN[i] + COLUMN_LABEL[i] + " " * SPACE_COLUMN[i]
         if i < len(COLUMN_LABEL) - 1:
-            string += line + "|"
+            string += RESET + line + "|"
         else:
             string += RESET
         i += 1

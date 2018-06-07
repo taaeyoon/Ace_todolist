@@ -15,7 +15,7 @@ def search(option=None):
     search_answer_list = ["i", "d", "t", "c"]
 
     # 어떤 방법으로 찾고 싶은 지에 대한 input 함수 / 조건문
-    if option == None:
+    if option is None:
         search_type = input("How do you want to search? (i: id, t: title, d: due, c: category) ")
         while search_type not in search_answer_list:
             print()

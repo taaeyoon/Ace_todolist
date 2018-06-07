@@ -8,7 +8,7 @@ def date_check(due):
     max_date = 31
     max_month = 12
     longer_months = [1, 3, 5, 7, 8, 10, 12]
-    
+
     if len(due) < 10:
         due = now_date.convert_due(due)
 
@@ -21,7 +21,7 @@ def date_check(due):
         max_date = 30
     if month == 2:
         max_date = 28
-        if ((year % 4 == 0 and year & 100 != 0) or year % 400 == 0):
+        if (year % 4 == 0 and year & 100 != 0) or year % 400 == 0:
             max_date = 29
 
     if month < 1 or month > max_month:
@@ -29,6 +29,7 @@ def date_check(due):
     if date < 1 or date > max_date:
         return False
     return True
+
 
 def due_check(due):
     tokens_length = [1, 2, 2, 4]

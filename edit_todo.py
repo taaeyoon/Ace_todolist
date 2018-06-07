@@ -33,7 +33,7 @@ def edit_todo(searching, target):
             target_id = lists[0][0]
 
         column_list = ['title', 'due', 'due', 'fin', 'priority', 'category', 'place', 'comment']
-        if target == None:
+        if target is None:
             select = input("\nWhat do you want to edit? \n\n Title => title"
                            "\n Due date => due \n Finished => fin"
                            "\n priority => priority \n category = > category"

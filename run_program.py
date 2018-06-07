@@ -25,14 +25,15 @@ def run_program():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--add", help="add item", action="store_true")
-    parser.add_argument("--list", choices=["a","f"], help="print list of items")
-    parser.add_argument("--edit", choices=["title", "category", "due", "priority", "fin", "place", "comment"], help="edit item")
+    parser.add_argument("--list", choices=["a", "f"], help="print list of items")
+    parser.add_argument("--edit", choices=["title", "category", "due", "priority",
+                                           "fin", "place", "comment"], help="edit item")
     parser.add_argument("--stat", help="stats of items", action="store_true")
     parser.add_argument("--search", choices=["i", "t", "c", "d"], help="search item that you want to find")
     parser.add_argument("--detail", help="print details of items that you want to see", action="store_true")
     parser.add_argument("--remove", help="remove item that you want to remove", action="store_true")
     parser.add_argument("--version", action="version", version="version 1.0")
-    parser.add_argument("--sort", choices=["t","c","p","d", "T", "C", "P", "D"], help="option for sorting")
+    parser.add_argument("--sort", choices=["t", "c", "p", "d", "T", "C", "P", "D"], help="option for sorting")
 
     args = parser.parse_args()
 
@@ -45,7 +46,7 @@ def run_program():
                 status = list_todo.sort(UPWARD_OPTIONS.index(args.sort)+1, 0, select2)
             elif args.sort in DOWNWARD_OPTIONS:
                 status = list_todo.sort(DOWNWARD_OPTIONS.index(args.sort)+1, 1, select2)
-            else:         
+            else:
                 list_todo.list_finished_unfinished()
         else:
             select2 = 0
@@ -54,18 +55,21 @@ def run_program():
             elif args.sort in DOWNWARD_OPTIONS:
                 status = list_todo.sort(DOWNWARD_OPTIONS.index(args.sort)+1, 1, select2)
             else:
-                list_todo.list_all()           
+                list_todo.list_all()
         # 옵션 입력(기본값은 오름차순, 동일한 옵션을 입력할 시 차순 변경)
         while 1:
             option = input("Sort in other way or quit this section:\n"
                            "(t: title, c: category, p: priority, d: due, q: quit)? ")
             if option == 'q':
                 break
-            while option not in OPTIONS:
+            while option not in UPWARD_OPTIONS and option not in DOWNWARD_OPTIONS:
                 print("Wrong input!\n")
                 option = input("Sort in other way or quit this section:\n"
                                "(t: title, c: category, p: priority, d: due, q: quit)? ")
-            option = OPTIONS.index(option) + 1
+            if option in UPWARD_OPTIONS:
+                option = UPWARD_OPTIONS.index(option) + 1
+            elif option in DOWNWARD_OPTIONS:
+                option = UPWARD_OPTIONS.index(option) + 1
             # 옵션에 따른 정렬 및 출력 함수
             status = list_todo.sort(int(option), status, select2)
     elif args.edit and args.search:

@@ -1,25 +1,28 @@
+# -*- coding: utf-8 -*-
+
 # todo table에 존재하는 todo 항목을 검색하여 찾는 함수...
 
 import sqlite3
 import list_todo as printer
 
 
-def search():
+def search(option=None):
     conn = sqlite3.connect("ace.db")
     cur = conn.cursor()
 
     # 검색한 항목을 담은 list
     search_list = []
-    search_answer_list = ["i","d","t","c"]
+    search_answer_list = ["i", "d", "t", "c"]
 
     # 어떤 방법으로 찾고 싶은 지에 대한 input 함수 / 조건문
-    search_type = input("How do you want to search? (i: id, t: title, d: due, c: category) ")
-    
-    while(search_type not in search_answer_list):
-        print()
-        print("Incorrect type")
+    if option is None:
         search_type = input("How do you want to search? (i: id, t: title, d: due, c: category) ")
-
+        while search_type not in search_answer_list:
+            print()
+            print("Incorrect type")
+            search_type = input("How do you want to search? (i: id, t: title, d: due, c: category) ")
+    else:
+        search_type = option
 
     if search_type == "i":
         search_id = input("what id: ")
@@ -43,7 +46,7 @@ def search():
         printer.print_list(search_list)
 
     elif search_type == "c":
-        search_category = input("whar category: ")
+        search_category = input("what category: ")
         search_list = contain_thing(search_category, 2)
         printer.print_list(search_list)
 

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import list_todo
 import edit_todo
 import create_db
@@ -9,27 +11,11 @@ import detail
 import argparse
 
 
-COLUMN = ["title", "category", "priority", "due"]
-SORT = ["asc", "desc"]
-OPTIONS = ["t", "c", "o", "d"]
+UPWARD_OPTIONS = ["t", "c", "p", "d"]
+DOWNWARD_OPTIONS = ["T", "C", "P", "D"]
 
 
 # 정렬 함수 (option은 정렬 대상, status는 정렬 방식(오름차/내립차순), finished는 완료 여부에 따른 출력 방식을 결정)
-def sort(option, status, finished):
-    if finished == 0:
-        if option == status:
-            list_todo.list_all(COLUMN[option-1] + " " + SORT[1])
-            return 0
-        else:
-            list_todo.list_all(COLUMN[option-1] + " " + SORT[0])
-            return option
-    else:
-        if option == status:
-            list_todo.list_finished_unfinished(COLUMN[option-1] + " " + SORT[1])
-            return 0
-        else:
-            list_todo.list_finished_unfinished(COLUMN[option-1] + " " + SORT[0])
-            return option
 
 
 # 프로그램 실행코드
@@ -37,53 +23,81 @@ def run_program():
     # 개행을 위한 print()
     print()
     parser = argparse.ArgumentParser()
-    
-    parser.add_argument("--add",help ="add item",action="store_true")
-    parser.add_argument("--list",help="print list of items",action="store_true")
-    parser.add_argument("--edit",help ="edit item",action="store_true")
-    parser.add_argument("--stat",help ="stats of items",action="store_true")
-    parser.add_argument("--search",help ="search item that you want to find",action="store_true")
-    parser.add_argument("--detail",help ="print details of items that you want to see",action="store_true")
-    parser.add_argument("--remove",help ="remove item that you want to remove",action="store_true")
-    parser.add_argument("--version",action="version", version ="version 1.0")
+
+    parser.add_argument("--add", help="add item", action="store_true")
+    parser.add_argument("--list", choices=["a", "f"], help="print list of items")
+    parser.add_argument("--edit", choices=["title", "category", "due", "priority",
+                                           "fin", "place", "comment"], help="edit item")
+    parser.add_argument("--stat", help="stats of items", action="store_true")
+    parser.add_argument("--search", choices=["i", "t", "c", "d"], help="search item that you want to find")
+    parser.add_argument("--detail", help="print details of items that you want to see", action="store_true")
+    parser.add_argument("--remove", help="remove item that you want to remove", action="store_true")
+    parser.add_argument("--version", action="version", version="version 1.0")
+    parser.add_argument("--sort", choices=["t", "c", "p", "d", "T", "C", "P", "D"], help="option for sorting")
 
     args = parser.parse_args()
 
-    if(args.add):
+    if args.add:
         add_todo.add_todo()
-    elif(args.list):
-        select2 = input("Choose what to print:\n(a: all, f: finished/unfinished)? ")
-        # 초기 데이터베이스 출력
-        if select2 == 'a':
+    elif args.list:
+        if args.list == "f":
             select2 = 1
-            list_todo.list_all()
-        elif select2 == 'f':
-            select2 = 2
-            list_todo.list_finished_unfinished()
-        status = 0
+            if args.sort in UPWARD_OPTIONS:
+                status = list_todo.sort(UPWARD_OPTIONS.index(args.sort)+1, 0, select2)
+            elif args.sort in DOWNWARD_OPTIONS:
+                status = list_todo.sort(DOWNWARD_OPTIONS.index(args.sort)+1, 1, select2)
+            else:
+                list_todo.list_finished_unfinished()
+        else:
+            select2 = 0
+            if args.sort in UPWARD_OPTIONS:
+                status = list_todo.sort(UPWARD_OPTIONS.index(args.sort)+1, 0, select2)
+            elif args.sort in DOWNWARD_OPTIONS:
+                status = list_todo.sort(DOWNWARD_OPTIONS.index(args.sort)+1, 1, select2)
+            else:
+                list_todo.list_all()
+        # 옵션 입력(기본값은 오름차순, 동일한 옵션을 입력할 시 차순 변경)
         while 1:
             option = input("Sort in other way or quit this section:\n"
-                            "(t: title, c: category, o: order, d: due, q: quit)? ")
+                           "(t: title, c: category, p: priority, d: due, q: quit)? ")
             if option == 'q':
                 break
-            option = OPTIONS.index(option) + 1
+            while option not in UPWARD_OPTIONS and option not in DOWNWARD_OPTIONS:
+                print("Wrong input!\n")
+                option = input("Sort in other way or quit this section:\n"
+                               "(t: title, c: category, p: priority, d: due, q: quit)? ")
+            if option in UPWARD_OPTIONS:
+                option = UPWARD_OPTIONS.index(option) + 1
+            elif option in DOWNWARD_OPTIONS:
+                option = UPWARD_OPTIONS.index(option) + 1
             # 옵션에 따른 정렬 및 출력 함수
-            status = sort(int(option), status, int(select2)-1)
-
-    elif(args.edit):
-        edit_todo.edit_todo()
-    elif(args.stat):
+            status = list_todo.sort(int(option), status, select2)
+    elif args.edit:
+        target = args.edit
+        if not args.search:
+            searching = None
+        else:
+            searching = args.search
+        edit_todo.edit_todo(searching, target)
+    elif args.detail:
+        if not args.search:
+            detail.detail()
+        else:
+            detail.detail(args.search)
+    elif args.remove:
+        if not args.search:
+            remove_todo.remove_todo()
+        else:
+            remove_todo.remove_todo(args.search)
+    elif args.search:
+        search.search(args.search)
+    elif args.stat:
         stat_todo.stat_todo()
-    elif(args.search):
-        search.search()
-    elif(args.detail):
-        detail.detail()
-    elif(args.remove):
-        remove_todo.remove_todo()
-    else :
+    else:
         print("Hello!, This is ACE TODO APPLICATION")
         print("If you want to run action of ACE, confirm options(-h or --help)")
         print()
+
 
 if __name__ == "__main__":
     create_db.create_db()

@@ -101,7 +101,7 @@ def edit_todo(searching, target):
 
         conn.commit()
 
-        loop = input("\nanything else you want to edit?/n yes:y no:n ")
+        loop = input("\nanything else you want to edit? (yes: y no: n): ")
 
     # 변경된 리스트 출력
     list_todo.list_all()

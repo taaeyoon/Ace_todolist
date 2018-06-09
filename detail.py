@@ -45,7 +45,19 @@ def detail(searching=None):
 
     # 항목 보여주기
     for i in range(0, len(col_list)):
-        print(col_list[i], ":", row[i])
+
+        # 완료 미완료를 제대로 표시하기 위한 조건문
+        if i == 7:
+            if row[i] == 1 :
+                print(col_list[i], ":", "finished")
+            else : 
+                print(col_list[i], ":", "unfinished")
+        else :
+            # 입력한 사항이 없으면 none(없음) 출력하는 것
+            if row[i] == " " :
+                print(col_list[i], ":", "none(empty)")
+            else : 
+                print(col_list[i], ":", row[i])
 
     print()
 

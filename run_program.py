@@ -25,15 +25,19 @@ def run_program():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--add", help="add item", action="store_true")
-    parser.add_argument("--list", choices=["a", "f"], help="print list of items")
+    parser.add_argument("--list", choices=["a", "f"], 
+                        help= "print list of items(a: list of all items, f: split view of list based on completion)")
     parser.add_argument("--edit", choices=["title", "category", "due", "priority",
-                                           "fin", "place", "comment"], help="edit item")
-    parser.add_argument("--stat", help="stats of items", action="store_true")
-    parser.add_argument("--search", choices=["i", "t", "c", "d"], help="search item that you want to find")
-    parser.add_argument("--detail", help="print details of items that you want to see", action="store_true")
-    parser.add_argument("--remove", help="remove item that you want to remove", action="store_true")
+                                           "fin", "place", "comment"], 
+                                help="edit item based on title, category, ..., comment")
+    parser.add_argument("--stat", help="statistics of items", action="store_true")
+    parser.add_argument("--search", choices=["i", "t", "c", "d"], 
+                                    help="search item based on (i : ID, t: title, c : category, d: due)")
+    parser.add_argument("--detail", help="print details of item", action="store_true")
+    parser.add_argument("--remove", help="remove item", action="store_true")
     parser.add_argument("--version", action="version", version="version 1.0")
-    parser.add_argument("--sort", choices=["t", "c", "p", "d", "T", "C", "P", "D"], help="option for sorting")
+    parser.add_argument("--sort", choices=["t", "c", "p", "d", "T", "C", "P", "D"], 
+                                    help="option for sorting (t : title, c: category, p: priority, d: due)")
 
     args = parser.parse_args()
 

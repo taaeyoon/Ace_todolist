@@ -1,0 +1,148 @@
+.\"
+.\" This is a man page for Ace_todolist(1)
+.\"	written by Ace
+.\"
+.TH Ace_todolist "1" "2018-06-11" "v1.1"
+
+
+.SH NAME
+Ace_todolist - show Todo database in CLI system
+
+.SH SYNOPSIS
+.B Ace_todolist
+[
+.BR -h " | " --help
+]
+[
+.B --add
+]
+[
+.B --list 
+.IR a ", " f
+]
+[
+.B --sort 
+.IR t ", "T ", "c ", "C ", "p ", "P ", "d ", "D
+]
+[
+.B --eit
+.IR title ", "category ", "due ", "priority ", "fin ", "place ", "comment
+]
+[
+.B --stat
+]
+[
+.B --search
+.IR i ", "t ", "c ", "d
+]
+[
+.B --detail
+]
+[
+.B --remove
+]
+[
+.B --version
+]
+
+.SH DESCRIPTION
+Ace_todolist is an application for manager assignment, event or many kinds of objective. This program is Open Source with 
+.B "MIT" 
+License. If you want to develop this program for your own, please see the 
+.B "Development Guide"
+in our repository. This program is based on Python 3.6 and can be run on Command Line Interface.
+
+.SH OPTIONS
+.TP
+.BR -h "," --help
+Display help massage and exit.
+
+.TP
+.B --add
+Add Todo in database.
+
+.TP
+.B --list
+Display Todo(s) in database on consol. Two options are available.
+.IP 
+.BR a " : Display all of the database."
+
+.BR f " : Display finished and unfinished Todo(s) separately."
+
+.TP
+.B --sort
+Sort the list of Todo(s). Must be used with --list option.
+.IP
+.BR t ", "T " : sort by Title."
+
+.BR c ", "C " : sort by Category."
+
+.BR p ", "P " : sort by Priority."
+
+.BR d ", "D " : sort by Due."
+
+.I Lowercase letter sort in ascending order, and uppercase letter sort in descending order.
+
+.TP
+.B --edit
+Edit implemented field in the selected Todo in the database.
+.IP
+.B title
+
+.B category
+
+.B due
+
+.B priority
+
+.B fin
+
+.B place
+
+.B comment
+
+.TP
+.B --stat
+Display the stats of the database.
+
+.TP
+.B --search
+Search and select the Todo(s) in database. Can use with the options --edit, --detail, --remove.
+.IP
+.BR i " : search by ID."
+
+.BR t " : search by Title."
+
+.BR c " : search by Category."
+
+.BR d " : search by Due."
+
+.TP
+.B --detail
+Display the details of Todo in database.
+
+.TP
+.B --remove
+Remove Todo in database.
+
+.TP
+.B --version
+Display the version of this program and exit.
+
+.SH LICENSING
+Ace_todolist is distributed under an Open Source liscense. See the file "LICENSE" in the Ace_todolist source distribution for information on terms & conditions for accessing and otherwise using Ace_todolist for a DISCLAIMER oF ALL WARRANTIES.
+
+.SH AUTHOR
+Github reposiory: https://github.com/taaeyoon/Ace_todolist
+
+TaeYoon KIM
+.RI < qmffhrmdyd123@naver.com >
+
+GunWoong NO
+.RI < gunoong011@gmail.com >
+
+SeungChan YU
+.RI < mario1470@naver.com >
+
+HaEun CHOI
+.RI < cothmm@naver.com >

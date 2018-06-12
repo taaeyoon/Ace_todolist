@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from datetime import datetime
 
 NOW = datetime.now()
@@ -46,4 +48,3 @@ def expired(due):
         return 0
     else:
         return 1
-

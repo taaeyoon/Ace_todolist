@@ -1,0 +1,3 @@
+[console_scripts]
+Ace_todolist = Ace_todolist.__main__:run_program
+

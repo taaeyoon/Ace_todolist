@@ -1,0 +1,8 @@
+setup.cfg
+setup.py
+Ace_todolist.egg-info/PKG-INFO
+Ace_todolist.egg-info/SOURCES.txt
+Ace_todolist.egg-info/dependency_links.txt
+Ace_todolist.egg-info/entry_points.txt
+Ace_todolist.egg-info/not-zip-safe
+Ace_todolist.egg-info/top_level.txt

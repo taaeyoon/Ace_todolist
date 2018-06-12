@@ -1,0 +1,14 @@
+Metadata-Version: 1.2
+Name: Ace-todolist
+Version: 2.0
+Summary: todolist by Ace
+Home-page: https://github.com/taaeyoon/Ace_todolist
+Author: Ace
+Author-email: qmffhrmdyd123@naver.com
+License: MIT
+Download-URL: https://github.com/taaeyoon/Ace_todolist/archive/master.zip
+Description: UNKNOWN
+Keywords: todolist by Ace
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.6
+Requires-Python: >=3.6
